@@ -1,0 +1,12 @@
+.image-item {
+  max-width: 150px !important;
+  max-height: 150px !important;
+  max-width: fit-content;
+  display: flex;
+  flex-direction: column;
+  .custom-image-size {
+    width: 30px !important;
+    height: 30px !important;
+    object-fit: cover; /* Ensure the image maintains its aspect ratio while filling the 30x30px */
+  }
+}

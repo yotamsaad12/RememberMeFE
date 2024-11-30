@@ -1,0 +1,96 @@
+<div
+  class="min-h-screen bg-gradient-to-br from-blue-100 to-blue-300 flex items-center justify-center px-6 py-12"
+>
+  <div class="w-full max-w-2xl bg-white rounded-2xl shadow-lg p-8 space-y-6">
+    <!-- Page Header -->
+    <h2 class="text-2xl font-bold text-gray-700 text-center">
+      Upload Images with Descriptions
+    </h2>
+
+    <!-- Upload Form -->
+    <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()" class="space-y-4">
+      <!-- Image Upload -->
+      <div>
+        <label for="file" class="block text-sm font-medium text-gray-700"
+          >Choose Image</label
+        >
+        <input
+          type="file"
+          id="file"
+          accept="image/*"
+          (change)="onFileSelect($event)"
+          class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          required
+        />
+      </div>
+
+      <!-- Description -->
+      <div>
+        <label for="description" class="block text-sm font-medium text-gray-700"
+          >Description</label
+        >
+        <textarea
+          id="description"
+          formControlName="description"
+          rows="3"
+          class="block w-full px-4 py-2 text-gray-900 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          placeholder="Enter a description for this image"
+          required
+        ></textarea>
+      </div>
+
+      <!-- Save Button -->
+      <div class="flex justify-center">
+        <app-button-generic
+          variant="primary"
+          size="large"
+          type="submit"
+          [disabled]="!uploadForm.valid"
+        >
+          Save
+        </app-button-generic>
+      </div>
+    </form>
+    <div
+      *ngIf="savedImages.length > 0"
+      fxLayout="row wrap"
+      fxLayoutGap="32px"
+      fxLayoutAlign="flex-start"
+    >
+      <ng-container *ngFor="let image of savedImages; let i = index">
+        <div class="image-item">
+          <img
+            [src]="image.file"
+            alt="Image Preview"
+            class="custom-image-size"
+          />
+
+          <!-- Description -->
+          <p class="font-medium text-gray-700 text-center mb-4">
+            {{ image.description }}
+          </p>
+
+          <!-- Edit/Delete Icons -->
+          <div class="flex justify-center space-x-4">
+            <button
+              (click)="editImage(i)"
+              class="text-blue-500 hover:text-blue-700"
+            >
+              <i class="fas fa-edit"></i>
+              <!-- Edit Icon -->
+            </button>
+            <button
+              (click)="deleteImage(i)"
+              class="text-red-500 hover:text-red-700"
+            >
+              <i class="fas fa-trash-alt"></i>
+              <!-- Delete Icon -->
+            </button>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <!-- Saved Images List  -->
+  </div>
+</div>
